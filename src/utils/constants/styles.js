@@ -3,14 +3,14 @@ import { css } from 'styled-components';
 // Color palette
 
 export const colorPalette = {
-  primary1Color: '#3F51B5',
-  primary2Color: '#303F9F',
-  primary3Color: '#C5CAE9',
-  accent1Color: '#4CAF50',
+  primary1Color: '#4CAF50',
+  primary2Color: '#388E3C',
+  primary3Color: '#C8E6C9',
+  accent1Color: '#FF9800',
   accent2Color: '#BDBDBD',
   accent3Color: '#757575',
   textColor: '#212121',
-  pickerHeaderColor: '#3F51B5',
+  pickerHeaderColor: '#4CAF50',
 };
 
 // Media queries
