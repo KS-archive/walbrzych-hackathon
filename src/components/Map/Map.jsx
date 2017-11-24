@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import { StyledMap } from './Map_styles';
 
-const labels = 'AB';
-const locations = [
-  { lat: 50.7860098, lng: 16.2854904 },
-  { lat: 50.7870098, lng: 16.2864904 },
-];
-
 class Map extends Component {
   componentDidMount() {
     this.mapComp = new google.maps.Map(this.map, {
@@ -14,12 +8,8 @@ class Map extends Component {
       center: this.props.center,
     });
 
-    this.markers = locations.map((location, i) => {
-      return new google.maps.Marker({
-        position: location,
-        label: labels[i % labels.length],
-        map: this.mapComp,
-      });
+    this.markers = this.props.markers.map((marker) => {
+      return this.createGoogleMarker(marker);
     });
 
     this.markerCluster = new MarkerClusterer(this.mapComp, this.markers, {
@@ -29,6 +19,26 @@ class Map extends Component {
 
   shouldComponentUpdate() {
     return false;
+  }
+
+  createGoogleMarker(data) {
+    const r = new google.maps.Marker({
+      map: this.mapComp,
+      position: new google.maps.LatLng(data.location.lat, data.location.lng),
+      title: data.title,
+      label: data.label,
+    });
+    if (data.description) {
+      google.maps.event.addListener(r, 'click', function() {
+        if (!this.getMap().infoWindow) {
+          this.getMap().infoWindow = new google.maps.InfoWindow();
+        }
+        this.getMap().infoWindow.close();
+        this.getMap().infoWindow.setContent(data.description);
+        this.getMap().infoWindow.open(this.getMap(), this);
+      });
+    }
+    return r;
   }
 
   render() {
