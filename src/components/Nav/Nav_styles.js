@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
-import { colorPalette } from '../../utils/constants/styles';
+import { colorPalette, navHeight } from '../../utils/constants/styles';
 
 export const Container = styled.div`
   z-index: 10;
@@ -8,18 +8,12 @@ export const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: ${navHeight}px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
   background-color: ${colorPalette.primary2Color};
-`;
-
-export const Filler = styled.div`
-  width: 100vw;
-  height: 80px;
-  position: static;
 `;
 
 export const Logo = styled.div`

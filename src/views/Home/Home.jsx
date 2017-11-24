@@ -1,9 +1,16 @@
-import React from 'react';
-import { Container } from '../../utils/styledComponents';
-import { Header } from './Home_styles';
+import React, { Component } from 'react';
+import Map from '../../components/Map/Map';
+// import { Header } from './Home_styles';
 
-export default () => (
-  <Container>
-    <Header>Simple React Starter</Header>
-  </Container>
-);
+class Home extends Component {
+  render() {
+    return (
+      <Map
+        center={{ lat: 50.7860098, lng: 16.2854904 }}
+        zoom={14}
+      />
+    );
+  }
+}
+
+export default Home;

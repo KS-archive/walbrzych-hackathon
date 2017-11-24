@@ -50,4 +50,4 @@ export const media = {
 
 // Main dimensions
 
-export const navHeight = 0;
+export const navHeight = 80;
