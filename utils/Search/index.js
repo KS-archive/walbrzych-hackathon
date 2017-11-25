@@ -126,7 +126,9 @@ class Search{
       _sentence = _sentence.join('')
 
       for(let word of tokenizer.tokenize(_sentence)){
+        console.log(class_words[class_name],stemm(word),class_words[class_name].includes(stemm(word)))
         if(class_words[class_name].includes(stemm(word))){
+
           score += (1/ this.corpus_words[stemm(word)]);
           console.log(`mach: ${stemm(word)}`)
         }
@@ -140,7 +142,7 @@ class Search{
     for(let c of Object.keys(this.class_words)){
       let _score = calculateClassScore(sentence, c, this.class_words);
       if(_score !== 0) _result.push({id: c, score: _score});
-      //console.log(`Class: ${c}  Score:  ${calculateClassScore(sentence, c, this.class_words)}`)
+      console.log(`Class: ${c}  Score:  ${calculateClassScore(sentence, c, this.class_words)}`)
 
       //print ("Class: %s  Score: %s \n" % (c, calculate_class_score(sentence, c)))
     }
@@ -152,4 +154,3 @@ class Search{
 
 
 module.exports = (data, query) => new Search(data, query);
-

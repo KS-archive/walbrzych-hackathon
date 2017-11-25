@@ -6,10 +6,12 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
   const mainData = {
     page, limit, query, filters,
   };
+  console.log(mainData);
   const request = axios.post(url, mainData);
 
   return (dispatch) => {
     request.then(({ data }) => {
+      console.log(data);
       const events = data.data;
       const markers = data.data.map((marker) => {
         return {
@@ -21,9 +23,8 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
           },
           description: marker.description,
           category: marker.category,
-        }
+        };
       });
-      console.log(events);
 
       dispatch({
         type: GET_EVENTS,
@@ -33,7 +34,7 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
         type: GET_MARKERS,
         payload: markers,
       });
-    });
+    }, (err) => { console.log(err.response); });
   };
 }
 
@@ -44,7 +45,8 @@ export function toggleSidebar(value = null) {
   };
 }
 
-export function updateQuery(query = '') {
+export function updateQuery(query = '', callback = () => {}) {
+  callback();
   return {
     type: UPDATE_QUERY,
     payload: query,
