@@ -20,6 +20,7 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
             lng: marker.place.lng,
           },
           description: marker.description,
+          category: marker.category,
         }
       });
       console.log(events);

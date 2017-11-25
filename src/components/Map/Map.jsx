@@ -33,7 +33,7 @@ class Map extends Component {
       map: this.mapComp,
       position: new google.maps.LatLng(data.location.lat, data.location.lng),
       title: data.title,
-      label: data.label,
+      icon: `/img/pins/${data.category}.png`,
     });
     if (data.description) {
       google.maps.event.addListener(r, 'click', function() {
