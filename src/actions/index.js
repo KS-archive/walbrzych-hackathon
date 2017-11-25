@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_EVENTS, GET_MARKERS, TOGGLE_SIDEBAR, UPDATE_QUERY, CREATE_MARKERS_TO_EVENTS } from './types';
+import { GET_EVENTS, GET_MARKERS, TOGGLE_SIDEBAR, UPDATE_QUERY, CREATE_MARKERS_TO_EVENTS, TOGGLE_LIGHT } from './types';
 
 export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
   const url = `${__ROOT_URL__}api/events`;
@@ -22,6 +22,7 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
           description: marker.description,
         }
       });
+      console.log(events);
 
       dispatch({
         type: GET_EVENTS,
@@ -36,7 +37,6 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
 }
 
 export function toggleSidebar(value = null) {
-  console.log(value);
   return {
     type: TOGGLE_SIDEBAR,
     payload: value,

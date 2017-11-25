@@ -4,7 +4,6 @@ import bindActionCreators from 'redux/lib/bindActionCreators';
 import { getEvents } from '../../actions/index';
 import Map from '../../components/Map/Map';
 import Sidebar from '../../components/Sidebar/Sidebar';
-// import { Header } from './Home_styles';
 
 class Home extends Component {
   componentWillMount() {

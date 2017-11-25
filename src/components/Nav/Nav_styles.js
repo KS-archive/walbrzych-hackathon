@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import MenuIcon from 'material-ui/svg-icons/navigation/menu';
+import LightbulbIcon from 'material-ui/svg-icons/action/lightbulb-outline';
 import { colorPalette, navHeight } from '../../utils/constants/styles';
 
 export const Container = styled.div`
@@ -23,6 +24,11 @@ export const Logo = styled.div`
   background-position: left center;
   background-repeat: no-repeat;
   background-size: contain;
+`;
+
+export const StyledLightbulbIcon = styled(LightbulbIcon)`
+  cursor: pointer;
+  margin: 0 20px 0 auto;
 `;
 
 export const StyledMenuIcon = styled(MenuIcon)`
