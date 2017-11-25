@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { navHeight } from '../../utils/constants/styles';
 
 export const Container = styled.div`
   position: relative;
@@ -8,7 +9,7 @@ export const Container = styled.div`
 
 export const Body = styled.div`
   position: absolute;
-  top: 0;
+  top: ${navHeight}px;
   left: 0;
   right: 0;
   bottom: 0;

@@ -18,17 +18,42 @@ class EventModel{
       interested: Number,
       place: {
         name: String,
-        location: {
-          city: String,
-          lat: Number,
-          lng: Number
-        }
+        lat: Number,
+        lng: Number,
+        street: String,
+        zip: String
+      },
+      score: {
+        type: Number,
+        default: 0
       }
     });
 
     schema.statics.getEvent = getEvent;
+    schema.statics.getMarkers = getMarkers;
     schema.statics.mockFB = mockFB;
 
+    function getMarkers() {
+      return new Promise((resolve,reject) => {
+        this.model('Event').find({},(err, results) => {
+          if(err) reject(err);
+          if(results === null) reject(null);
+          else {
+            let _results = results.map(element => {
+              return {
+                title: element.name,
+                location: {
+                  lat: element.place.lat,
+                  lng: element.place.lng
+                }
+              };
+            });
+
+            resolve(_results);
+          }
+        });
+      });
+    }
 
     function getEvent(query){
       let _query = {};
