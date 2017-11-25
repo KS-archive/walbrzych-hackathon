@@ -7,12 +7,13 @@ class EventModel{
 
   eventModel(){
     let schema = new mongoose.Schema({
+      eventID: String,
       name: String,
       coverImg: String,
       profileImg: [String],
       description: String,
       startTime: String,
-      end: String,
+      endTime: String,
       category: String,
       attenders: Number,
       interested: Number,
@@ -32,6 +33,7 @@ class EventModel{
     schema.statics.getEvent = getEvent;
     schema.statics.getMarkers = getMarkers;
     schema.statics.mockFB = mockFB;
+    schema.statics.getEventByCategory = getEventByCategory;
 
     function getMarkers() {
       return new Promise((resolve,reject) => {
@@ -55,21 +57,27 @@ class EventModel{
       });
     }
 
-    function getEvent(query){
-      let _query = {};
-      if(!query) console.log('query not attached');
-      else {
-        return new Promise((resolve, reject) => {
-          this.model('Event').find({},(err, results) => {
-            if(err) reject(err);
-            if(results === []) reject();
-            else {
-              resolve(results);
-            }
-          });
-        });
-      }
+    function getEvent(){
+      return new Promise((resolve, reject) => {
+        this.model('Event').find({},(err, results) => {
+          if(err) reject(err);
+          else {
+            resolve(results);
+          }
+        }).sort({startTime: 'asc'});
+      });
     };
+
+    function getEventByCategory(category) {
+      return new Promise((resolve, reject) => {
+        this.model('Event').find({category: category},(err, results) => {
+          if(err) reject(err);
+          else {
+            resolve(results);
+          }
+        }).sort({startTime: 'asc'});
+      });
+    }
 
     function mockFB(query){
       let _query = {};
