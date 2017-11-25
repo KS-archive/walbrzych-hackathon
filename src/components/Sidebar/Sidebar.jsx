@@ -8,6 +8,22 @@ import Searchbar from '../Searchbar/Searchbar';
 import { toggleSidebar } from '../../actions';
 import { StyledDrawer, Events, StyledMenuItem, Image, Data, Category, Name, Details, Detail, DetailText } from './Sidebar_styles';
 
+const colorChooser = category => {
+  switch(category) {
+    case 'Zwiedzanie': return '#795548';
+    case 'Zdrowie': return '#f44336';
+    case 'Zakupy': return '#3f51b5';
+    case 'Sztuka': return '#9c27b0';
+    case 'Sport i rekreacja': return '#2196f3';
+    case 'Koncert': return '#673ab7';
+    case 'Inne': return '#607d8b';
+    case 'Impreza': return '#ff5722';
+    case 'Edukacja': return '#ff9800';
+    case 'Dla dzieci': return '#03a9f4';
+    case 'Cele dobroczynne': return '#e91e63';
+  }
+};
+
 class Sidebar extends Component {
   renderEvent = (event, index) => {
     const data = event.startTime.split(/(T|\+)/);
@@ -20,7 +36,7 @@ class Sidebar extends Component {
       >
         <Image src={event.profileImg[0]} />
         <Data>
-          <Category>{event.category}</Category>
+          <Category color={() => colorChooser(event.category)}>{event.category}</Category>
           <Name>{event.name}</Name>
           <Details>
             <Detail>

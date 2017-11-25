@@ -66,7 +66,7 @@ export const Category = styled.div`
   font-size: 14px;
   font-weight: 900;
   text-transform: uppercase;
-  color: ${colorPalette.primary1Color};
+  color: ${props => props.color};
 `;
 
 export const Name = styled.div`
