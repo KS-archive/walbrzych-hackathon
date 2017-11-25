@@ -12,7 +12,7 @@ class EventModel{
       profileImg: [String],
       description: String,
       startTime: String,
-      end: String,
+      endTime: String,
       category: String,
       attenders: Number,
       interested: Number,

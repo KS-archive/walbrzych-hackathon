@@ -12,7 +12,7 @@ class EventRouter{
 
   init(){
     this.eventRouter.post('/events', (req, res) => {
-      if(!(req.body.page && req.body.limit, req.body.query && req.body.filters)) rews.status(400).json({success: false, message: "Missing parameters."});
+      //if(!(req.body.page && req.body.limit, req.body.query && req.body.filters)) res.status(400).json({success: false, message: "Missing parameters."});
       Event.getEvent(1).then(result => {
         res.status(200).json({success: true, data: result})
       }).catch(err => {
