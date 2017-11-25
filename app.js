@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -22,6 +23,7 @@ class Application{
     this.routes();
   }
   middleware(){
+    this.app.use(bodyParser.json());
     this.app.use(express.static(path.join(__dirname, '/public')));
     this.app.use(express.static(path.join(__dirname, '/build')));
   }
