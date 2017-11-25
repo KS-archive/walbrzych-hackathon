@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyledMap } from './Map_styles';
+import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
+import { createMarkersToEvents } from '../../actions';
 
 class Map extends Component {
   componentDidMount() {
@@ -15,6 +17,8 @@ class Map extends Component {
     this.markerCluster = new MarkerClusterer(this.mapComp, this.markers, {
       imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
     });
+
+    this.props.createMarkersToEvents(this.markers);
   }
 
   shouldComponentUpdate() {
@@ -48,4 +52,8 @@ class Map extends Component {
   }
 }
 
-export default Map;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ createMarkersToEvents }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Map);

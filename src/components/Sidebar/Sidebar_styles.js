@@ -28,12 +28,12 @@ export const Events = styled.div`
 
   &::-webkit-scrollbar-track {
     border-radius: 10px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
   }
 
   &::-webkit-scrollbar {
     width: 8px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
 
     @media (max-width: 700px) {
       display: none;
