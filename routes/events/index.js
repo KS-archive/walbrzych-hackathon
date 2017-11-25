@@ -30,6 +30,14 @@ class EventRouter{
         }).catch(err => {
           res.status(400).json({success: false, message: "Getting events error."});
         });
+      }
+      else if(req.body.category){
+        Event.getEventByCategory(req.body.category).then(result => {
+          res.status(200).json({success: true, data: result})
+
+        }).catch(err => {
+          res.status(400).json({success: false, message: "Getting events error."});
+        });
       }else{
         Event.getEvent(1).then(result => {
 
