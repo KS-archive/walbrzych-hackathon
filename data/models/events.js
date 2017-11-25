@@ -33,6 +33,7 @@ class EventModel{
     schema.statics.getEvent = getEvent;
     schema.statics.getMarkers = getMarkers;
     schema.statics.mockFB = mockFB;
+    schema.statics.getEventByCategory = getEventByCategory;
 
     function getMarkers() {
       return new Promise((resolve,reject) => {
@@ -59,14 +60,24 @@ class EventModel{
     function getEvent(){
       return new Promise((resolve, reject) => {
         this.model('Event').find({},(err, results) => {
-          console.log(err, results)
           if(err) reject(err);
           else {
             resolve(results);
           }
-        });
+        }).sort({startTime: 'asc'});
       });
     };
+
+    function getEventByCategory(category) {
+      return new Promise((resolve, reject) => {
+        this.model('Event').find({category: category},(err, results) => {
+          if(err) reject(err);
+          else {
+            resolve(results);
+          }
+        }).sort({startTime: 'asc'});
+      });
+    }
 
     function mockFB(query){
       let _query = {};
