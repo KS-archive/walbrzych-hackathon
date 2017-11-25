@@ -9,10 +9,90 @@
 <title>Eventify - Wabrzych</title>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvAiCOCas8c6t-Uj3rXLCdy1wifEp4nfk"> </script>
+<style>
+.preload {
+  background-color: #4CAF50;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10000;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 1s;
+}
 
+.preload.hidden {
+  opacity: 0;
+}
+
+.preload.removed {
+  display: none;
+}
+
+.logo {
+  width: 300px;
+  height: 70px;
+}
+
+.loader-frame {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  margin-top: 30px;
+}
+
+.loader1, .loader2 {
+  position: absolute;
+  border: 5px solid transparent;
+  border-radius: 50%;
+}
+
+.loader1 {
+  width: 70px;
+  height: 70px;
+  border-top: 5px solid orange;
+  border-bottom: 5px solid orange;
+  animation: clockwisespin 2s linear infinite;
+}
+
+.loader2 {
+  width: 60px;
+  height: 60px;
+  border-top: 5px solid white;
+  border-bottom: 5px solid white;
+  top: 5px; left: 5px;
+  animation: anticlockwisespin 2s linear infinite;
+}
+
+@keyframes clockwisespin {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(360deg);}
+}
+@keyframes anticlockwisespin {
+  from {transform: rotate(0deg);}
+  to {transform: rotate(-360deg);}
+}
+
+@keyframes fadeout {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+</style>
 </head>
 
 <body>
+  <div class="preload" id="preloader">
+     <img class="logo" src="/img/logo.svg" />
+     <div class="loader-frame">
+       <div class="loader1" id="loader1"></div>
+       <div class="loader2" id="loader2"></div>
+     </div>
+   </div>
     <div class="container"></div>
 </script>
 </body>
