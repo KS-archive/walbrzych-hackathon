@@ -140,7 +140,7 @@ class Search{
     for(let c of Object.keys(this.class_words)){
       let _score = calculateClassScore(sentence, c, this.class_words);
       if(_score !== 0) _result.push({id: c, score: _score});
-      //console.log(`Class: ${c}  Score:  ${calculateClassScore(sentence, c, this.class_words)}`)
+      console.log(`Class: ${c}  Score:  ${calculateClassScore(sentence, c, this.class_words)}`)
 
       //print ("Class: %s  Score: %s \n" % (c, calculate_class_score(sentence, c)))
     }
