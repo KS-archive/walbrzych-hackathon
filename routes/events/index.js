@@ -8,17 +8,37 @@ class EventRouter{
   constructor(){
     this.eventRouter = router;
     this.init();
+    Event.find({}, (err, result) => {
+      //let search = require('./../../utils/Search')(result);
+      //search.calculateScore("Turniej piłki nożnej");
+    });
   };
 
   init(){
     this.eventRouter.post('/events', (req, res) => {
-      // if(!(req.body.page && req.body.limit, req.body.query && req.body.filters))
-      // res.status(400).json({success: false, message: "Missing parameters."});
-      Event.getEvent(1).then(result => {
-        res.status(200).json({success: true, data: result})
-      }).catch(err => {
-        res.status(400).json({success: false, message: "Getting events error."});
-      });
+      if(req.body.query){
+        Event.getEvent().then(result => {
+          let _result =require('./../../utils/Search')(result, req.body.query).calculateScore(req.body.query);
+          let _ids = _result.map(element => {
+            return mongoose.Types.ObjectId(element.id);
+          });
+
+          Event.find({_id: {$in: _ids}}, (err, result) => {
+            res.status(200).json({success: true, data: result})
+          });
+
+        }).catch(err => {
+          res.status(400).json({success: false, message: "Getting events error."});
+        });
+      }else{
+        Event.getEvent(1).then(result => {
+
+          res.status(200).json({success: true, data: result})
+
+        }).catch(err => {
+          res.status(400).json({success: false, message: "Getting events error."});
+        });
+      }
     });
 
     this.eventRouter.post('/mock', (req, res) => {
@@ -36,7 +56,7 @@ class EventRouter{
       }).then(function (events) {
 
         let _mock = events.events.map(element => {
-          console.log(element.place.location,111111)
+          //console.log(element.place.location,111111)
           return {
             name: element.name,
             profileImg: element.profilePicture,
@@ -77,6 +97,15 @@ class EventRouter{
     this.eventRouter.get('/markers', (req,res) => {
       Event.getMarkers().then(results => res.json({success: true, data: results}))
         .catch(err => res.json({success:false, message: "Markers get error."}))
+    });
+
+    this.eventRouter.post('/search', (req, res) => {
+      Event.find({}, (err, result) => {
+        let _result =require('./../../utils/Search')(result, req.body.query).calculateScore('Mikołajki');
+        //console.log(_result)
+        if(err) res.status(400).json({success: false, message: "Event find failed."});
+        else res.status(200).json({success: true, data: _result})
+      });
     });
 
 
