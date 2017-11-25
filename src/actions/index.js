@@ -6,12 +6,10 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
   const mainData = {
     page, limit, query, filters,
   };
-  console.log(mainData);
   const request = axios.post(url, mainData);
 
   return (dispatch) => {
     request.then(({ data }) => {
-      console.log(data);
       const events = data.data;
       const markers = data.data.map((marker) => {
         return {
@@ -21,6 +19,7 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
             lat: marker.place.lat,
             lng: marker.place.lng,
           },
+          coverImg: marker.coverImg,
           description: marker.description,
           category: marker.category,
         };

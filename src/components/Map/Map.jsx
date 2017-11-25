@@ -35,16 +35,24 @@ class Map extends Component {
       title: data.title,
       icon: `/img/pins/${data.category}.png`,
     });
-    if (data.description) {
-      google.maps.event.addListener(r, 'click', function() {
-        if (!this.getMap().infoWindow) {
-          this.getMap().infoWindow = new google.maps.InfoWindow();
-        }
-        this.getMap().infoWindow.close();
-        this.getMap().infoWindow.setContent(data.description);
-        this.getMap().infoWindow.open(this.getMap(), this);
-      });
-    }
+    const shortText = (data.description && data.description.length > 150) ? `${data.description.slice(0, 150)}...` : data.description;
+    const description = `
+      <div style="max-width: 300px; display: flex; flex-direction: column; align-items: center;">
+        <img style="max-width: 280px; max-height: 150px;" src="${data.coverImg}"/>
+        <h2 style="margin: 10px 0; font-size: 20px; font-weight: 500; color: #212121;">${data.title}</h2>
+        <p>${shortText}</p>
+        <div style="color: #3C589A; cursor: pointer; font-weight: 500; margin: 10px 0; font-size: 17px;">Zobacz na Facebooku</div>
+      </div>
+    `
+    google.maps.event.addListener(r, 'click', function() {
+      if (!this.getMap().infoWindow) {
+        this.getMap().infoWindow = new google.maps.InfoWindow();
+      }
+      this.getMap().panTo(r.position);
+      this.getMap().infoWindow.close();
+      this.getMap().infoWindow.setContent(description);
+      this.getMap().infoWindow.open(this.getMap(), this);
+    });
     return r;
   }
 
