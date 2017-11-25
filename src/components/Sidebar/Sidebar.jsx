@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
 import EventIcon from 'material-ui/svg-icons/action/event';
 import ClockIcon from 'material-ui/svg-icons/device/access-time';
 import PersonIcon from 'material-ui/svg-icons/social/person';
 import Searchbar from '../Searchbar/Searchbar';
+import { toggleSidebar } from '../../actions';
 import { StyledDrawer, Events, StyledMenuItem, Image, Data, Category, Name, Details, Detail, DetailText } from './Sidebar_styles';
 
 class Sidebar extends Component {
@@ -14,7 +16,7 @@ class Sidebar extends Component {
     return (
       <StyledMenuItem
         key={index}
-        onClick={() => { google.maps.event.trigger(this.props.markersToEvents[index], 'click'); }}
+        onClick={() => { google.maps.event.trigger(this.props.markersToEvents[index], 'click'); this.props.toggleSidebar(false); }}
       >
         <Image src={event.profileImg[0]} />
         <Data>
@@ -58,4 +60,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Sidebar);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ toggleSidebar }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sidebar);

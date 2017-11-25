@@ -14,10 +14,6 @@ class Map extends Component {
       return this.createGoogleMarker(marker);
     });
 
-    this.markerCluster = new MarkerClusterer(this.mapComp, this.markers, {
-      imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-    });
-
     this.props.createMarkersToEvents(this.markers);
   }
 

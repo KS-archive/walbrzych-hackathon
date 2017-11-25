@@ -35,10 +35,11 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
   };
 }
 
-export function toggleSidebar() {
+export function toggleSidebar(value = null) {
+  console.log(value);
   return {
     type: TOGGLE_SIDEBAR,
-    payload: '',
+    payload: value,
   };
 }
 

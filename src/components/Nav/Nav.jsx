@@ -9,7 +9,7 @@ class Nav extends Component {
     return (
       <Container key="navContainer">
         <Logo src="/img/logo.svg" />
-        <StyledMenuIcon color="#fff" onClick={this.props.toggleSidebar} />
+        <StyledMenuIcon color="#fff" onClick={() => this.props.toggleSidebar()} />
       </Container>
     );
   }
