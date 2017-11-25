@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_EVENTS, GET_MARKERS, TOGGLE_SIDEBAR } from './types';
+import { GET_EVENTS, GET_MARKERS, TOGGLE_SIDEBAR, UPDATE_QUERY } from './types';
 
 export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
   const url = `${__ROOT_URL__}api/events`;
@@ -39,5 +39,12 @@ export function toggleSidebar() {
   return {
     type: TOGGLE_SIDEBAR,
     payload: '',
+  };
+}
+
+export function updateQuery(query = '') {
+  return {
+    type: UPDATE_QUERY,
+    payload: query,
   };
 }

@@ -12,9 +12,9 @@ class Home extends Component {
   }
 
   render() {
-    if (this.props.markers && this.props.markers.length > 0) {
+    if (this.props.markers && this.props.markers.length > 0 && this.props.events) {
       return [
-        <Sidebar key="Sidebar" open={this.props.sidebar} />,
+        <Sidebar key="Sidebar" open={this.props.sidebar} events={this.props.events} />,
         <Map
           key="Map"
           center={{ lat: 50.7860098, lng: 16.2854904 }}
