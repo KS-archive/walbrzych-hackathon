@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { GET_EVENTS, GET_MARKERS } from './types';
 
-export function getEvents(page, limit = 20, query, filters, successCallback, errorCallback) {
+export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
   const url = `${__ROOT_URL__}api/events`;
   const mainData = {
     page, limit, query, filters,
@@ -10,8 +10,18 @@ export function getEvents(page, limit = 20, query, filters, successCallback, err
 
   return (dispatch) => {
     request.then(({ data }) => {
-      const events = [];
-      const markers = [];
+      const events = data.data;
+      const markers = data.data.map((marker) => {
+        return {
+          title: marker.name,
+          label: 'A',
+          location: {
+            lat: marker.place.lat,
+            lng: marker.place.lng,
+          },
+          description: marker.description,
+        }
+      });
 
       dispatch({
         type: GET_EVENTS,
@@ -21,7 +31,6 @@ export function getEvents(page, limit = 20, query, filters, successCallback, err
         type: GET_MARKERS,
         payload: markers,
       });
-      successCallback();
-    }, () => { errorCallback(); });
+    });
   };
 }
