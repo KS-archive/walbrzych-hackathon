@@ -60,6 +60,14 @@ const config = {
 
 const customHistory = createBrowserHistory();
 
+if ('serviceWorker' in window.navigator) {
+  window.navigator.serviceWorker
+    .register('/sw.js')
+    .then(() => {
+      console.log('Service worker registered!');
+    });
+}
+
 ReactDOM.render(
   <MuiThemeProvider muiTheme={muiTheme}>
     <WebfontLoader config={config}>

@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
-import { StyledMap } from './Map_styles';
+import connect from 'react-redux/lib/connect/connect';
+import bindActionCreators from 'redux/lib/bindActionCreators';
+import { getCookie } from '../../utils/cookies';
+import { createMarkersToEvents } from '../../actions';
+import { day, night } from '../../utils/mapStyles';
 
 class Map extends Component {
+  componentWillMount() {
+    this.light = (getCookie('light') === 'true');
+  }
+
   componentDidMount() {
     this.mapComp = new google.maps.Map(this.map, {
       zoom: this.props.zoom,
       center: this.props.center,
+      styles: this.light ? day : night,
     });
 
     this.markers = this.props.markers.map((marker) => {
       return this.createGoogleMarker(marker);
     });
 
-    this.markerCluster = new MarkerClusterer(this.mapComp, this.markers, {
-      imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m',
-    });
+    this.props.createMarkersToEvents(this.markers);
   }
 
   shouldComponentUpdate() {
@@ -48,4 +55,8 @@ class Map extends Component {
   }
 }
 
-export default Map;
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ createMarkersToEvents }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Map);
