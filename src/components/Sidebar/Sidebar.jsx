@@ -4,6 +4,7 @@ import bindActionCreators from 'redux/lib/bindActionCreators';
 import EventIcon from 'material-ui/svg-icons/action/event';
 import ClockIcon from 'material-ui/svg-icons/device/access-time';
 import PersonIcon from 'material-ui/svg-icons/social/person';
+import MediaQuery from 'react-responsive';
 import Searchbar from '../Searchbar/Searchbar';
 import { toggleSidebar } from '../../actions';
 import { StyledDrawer, Events, StyledMenuItem, Image, Data, Category, Name, Details, Detail, DetailText } from './Sidebar_styles';
@@ -25,6 +26,10 @@ const colorChooser = category => {
 };
 
 class Sidebar extends Component {
+  componentWillMount() {
+    this.width = (window.innerWidth < 960) ? '100%' : 536;
+  }
+
   renderEvent = (event, index) => {
     const data = event.startTime.split(/(T|\+)/);
     const date = data[0];
@@ -59,7 +64,7 @@ class Sidebar extends Component {
 
   render() {
     return (
-      <StyledDrawer openSecondary open={this.props.open} width={536}>
+      <StyledDrawer openSecondary open={this.props.open} width={this.width}>
         <Searchbar />
         <Events>
           {this.props.markersToEvents && this.props.markersToEvents.length > 0 &&
