@@ -16,7 +16,6 @@ class EventRouter{
 
   init(){
     this.eventRouter.post('/events', (req, res) => {
-
       if(req.body.query){
         Event.getEvent().then(result => {
           let _result =require('./../../utils/Search')(result, req.body.query).calculateScore(req.body.query);

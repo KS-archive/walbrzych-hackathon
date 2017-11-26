@@ -126,7 +126,9 @@ class Search{
       _sentence = _sentence.join('')
 
       for(let word of tokenizer.tokenize(_sentence)){
+        console.log(class_words[class_name],stemm(word),class_words[class_name].includes(stemm(word)))
         if(class_words[class_name].includes(stemm(word))){
+
           score += (1/ this.corpus_words[stemm(word)]);
           console.log(`mach: ${stemm(word)}`)
         }
@@ -152,4 +154,3 @@ class Search{
 
 
 module.exports = (data, query) => new Search(data, query);
-

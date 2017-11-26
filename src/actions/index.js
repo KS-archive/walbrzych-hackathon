@@ -19,10 +19,11 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
             lat: marker.place.lat,
             lng: marker.place.lng,
           },
+          coverImg: marker.coverImg,
           description: marker.description,
-        }
+          category: marker.category,
+        };
       });
-      console.log(events);
 
       dispatch({
         type: GET_EVENTS,
@@ -32,7 +33,7 @@ export function getEvents(page = 0, limit = 20, query = '', filters = {}) {
         type: GET_MARKERS,
         payload: markers,
       });
-    });
+    }, (err) => { console.log(err.response); });
   };
 }
 
@@ -43,7 +44,8 @@ export function toggleSidebar(value = null) {
   };
 }
 
-export function updateQuery(query = '') {
+export function updateQuery(query = '', callback = () => {}) {
+  callback();
   return {
     type: UPDATE_QUERY,
     payload: query,

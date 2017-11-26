@@ -5,7 +5,7 @@ import bindActionCreators from 'redux/lib/bindActionCreators';
 import AutoComplete from 'material-ui/AutoComplete';
 import SearchIcon from 'material-ui/svg-icons/action/search';
 import CloseIcon from 'material-ui/svg-icons/navigation/close';
-import { updateQuery } from '../../actions';
+import { updateQuery, getEvents } from '../../actions';
 import { Container, SearchContainer, SearchIconWrapper, CloseIconWrapper } from './Searchbar_styles';
 
 class SearchBar extends Component {
@@ -17,16 +17,11 @@ class SearchBar extends Component {
     };
   }
 
-  componentWillMount() {
-    const query = this.state.searchText || '*';
-    // const url = `${__ROOT_URL__}api/circles_tooltip?query=${query}&limit=3`;
-    // axios.get(url).then(
-    //   (data) => { this.setState({ suggestions: data.data.data }); },
-    // );
-  }
-
   onRequestSearch = (chosenRequest) => {
-    this.props.updateQuery(chosenRequest);
+    console.log(chosenRequest);
+    this.props.updateQuery(chosenRequest, () => {
+      this.props.getEvents(0, 20, chosenRequest, {});
+    });
   }
 
   handleInput = (searchText) => {
@@ -35,12 +30,14 @@ class SearchBar extends Component {
 
   handleCancel = () => {
     this.setState({ searchText: '' });
-    this.props.updateQuery('');
+    this.props.updateQuery('', () => {
+      this.props.getEvents(0, 20, '', {});
+    });
   }
 
   handleKeyPress = (e) => {
     if (e.key === 'Enter' && !this.props.searchText) {
-      this.props.updateQuery(this.props.searchText);
+      this.onRequestSearch(this.state.searchText);
     }
   }
 
@@ -84,7 +81,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateQuery }, dispatch);
+  return bindActionCreators({ updateQuery, getEvents }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);

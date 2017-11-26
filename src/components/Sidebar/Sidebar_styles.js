@@ -19,6 +19,10 @@ export const StyledMenuItem = styled(MenuItem)`
     align-items: center;
     padding: 30px !important;
     border-bottom: 1px solid #eee;
+
+    @media (max-width: 540px) {
+      padding: 15px !important;
+    }
   }
 `;
 
@@ -51,6 +55,10 @@ export const Image = styled.div`
   height: 100px;
   margin-right: 30px;
   background: url('${props => props.src}') no-repeat center/cover;
+
+  @media (max-width: 540px) {
+    margin-right: 15px;
+  }
 `;
 
 export const Data = styled.div`
@@ -66,7 +74,7 @@ export const Category = styled.div`
   font-size: 14px;
   font-weight: 900;
   text-transform: uppercase;
-  color: ${colorPalette.primary1Color};
+  color: ${props => props.color};
 `;
 
 export const Name = styled.div`
@@ -93,4 +101,8 @@ export const DetailText = styled.div`
   font-size: 16px;
   font-weight: 300;
   color: ${colorPalette.accent2Color};
+
+  @media (max-width: 540px) {
+    font-size: 14px;
+  }
 `;
